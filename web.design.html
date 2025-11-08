@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Web Design Notes - 20 Chapters</title>
+    <link href="https://fonts.googleapis.com/css2?family=Radjani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Radjani', sans-serif;
+        }
+        
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --border-color: #000000;
+            --highlight-color: #000000;
+            --shadow-color: rgba(0, 0, 0, 0.2);
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 3px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .search-container {
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+        }
+        
+        #search-input {
+            width: 70%;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            border: 2px solid var(--border-color);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        
+        #search-btn {
+            padding: 15px 25px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            border: 2px solid var(--border-color);
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        #search-btn:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+        
+        .chapters-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .chapter-card {
+            border: 2px solid var(--border-color);
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chapter-card:hover {
+            box-shadow: 8px 8px 0 var(--shadow-color);
+            transform: translate(-3px, -3px);
+        }
+        
+        .chapter-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .chapter-card p {
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+        
+        .chapter-number {
+            display: inline-block;
+            padding: 5px 10px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .chapter-content {
+            display: none;
+            padding: 30px;
+            border: 2px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+        
+        .chapter-content.active {
+            display: block;
+        }
+        
+        .chapter-content h2 {
+            margin-bottom: 20px;
+            font-size: 2rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .chapter-content h3 {
+            margin: 25px 0 15px 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .chapter-content h4 {
+            margin: 20px 0 10px 0;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+        
+        .chapter-content p, .chapter-content ul, .chapter-content ol {
+            margin-bottom: 20px;
+        }
+        
+        .chapter-content ul, .chapter-content ol {
+            padding-left: 35px;
+        }
+        
+        .chapter-content li {
+            margin-bottom: 10px;
+        }
+        
+        .code-block {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: monospace;
+            line-height: 1.4;
+        }
+        
+        .note-box {
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            margin: 20px 0;
+            background-color: #f9f9f9;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            border: 2px solid var(--border-color);
+            padding: 12px 18px;
+            cursor: pointer;
+            display: none;
+            font-size: 1rem;
+            z-index: 100;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 2px solid var(--border-color);
+            margin-top: 50px;
+        }
+        
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .nav-btn {
+            padding: 10px 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+        
+        @media (max-width: 768px) {
+            .chapters-container {
+                grid-template-columns: 1fr;
+            }
+            
+            #search-input {
+                width: 60%;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Complete Web Design Notes</h1>
+        <p class="tagline">20 Detailed Chapters for Web Design Mastery</p>
+    </header>
+    
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search for chapters or topics...">
+        <button id="search-btn">Search</button>
+    </div>
+    
+    <div class="chapters-container" id="chapters-container">
+        <!-- Chapter cards will be generated by JavaScript -->
+    </div>
+    
+    <div id="chapters-content">
+        <!-- Chapter content will be generated by JavaScript -->
+    </div>
+    
+    <button class="back-to-top" id="back-to-top">↑ Top</button>
+    
+    <footer>
+        <p>Comprehensive Web Design Notes - All Rights Reserved</p>
+    </footer>
+
+    <script>
+        // Web Design Chapters Data - 20 unique chapters
+        const chapters = [
+            {
+                id: 1,
+                title: "Introduction to Web Design",
+                content: `
+                    <p>Web design is the process of creating websites. It encompasses several different aspects, including webpage layout, content production, and graphic design.</p>
+                    <p>While the terms web design and web development are often used interchangeably, web design is technically a subset of the broader category of web development.</p>
+                    <p>Websites are created using a markup language called HTML. Web designers build webpages using HTML tags that define the content and metadata of each page. The layout and appearance of the elements within a webpage are typically defined using CSS, or Cascading Style Sheets.</p>
+                    <h3>Key Principles of Web Design</h3>
+                    <ul>
+                        <li>Purpose: Good web design always caters to the needs of the user.</li>
+                        <li>Communication: People on the web tend to want information quickly.</li>
+                        <li>Typefaces: Sans serif fonts are generally easier to read online.</li>
+                        <li>Colors: A well-thought-out color palette can go a long way.</li>
+                        <li>Images: Each image should communicate a message.</li>
+                        <li>Navigation: Navigation should be simple and intuitive.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 2,
+                title: "HTML Fundamentals",
+                content: `
+                    <p>HTML (HyperText Markup Language) is the standard markup language for documents designed to be displayed in a web browser.</p>
+                    <p>HTML provides the structure of a webpage, while CSS controls the presentation, and JavaScript enables interactivity.</p>
+                    <h3>Basic HTML Document Structure</h3>
+                    <div class="code-block">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Document Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;This is a Heading&lt;/h1&gt;
+    &lt;p&gt;This is a paragraph.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                    </div>
+                    <p>HTML elements are the building blocks of HTML pages. They are represented by tags, written using angle brackets.</p>
+                    <p>Tags such as &lt;img /&gt; and &lt;input /&gt; directly introduce content into the page. Other tags such as &lt;p&gt; surround and provide information about document text and may include other tags as sub-elements.</p>
+                `
+            },
+            {
+                id: 3,
+                title: "CSS Basics",
+                content: `
+                    <p>CSS (Cascading Style Sheets) is used to style and layout web pages — for example, to alter the font, color, size, and spacing of your content, split it into multiple columns, or add animations and other decorative features.</p>
+                    <p>CSS can be added to HTML documents in 3 ways:</p>
+                    <ul>
+                        <li>Inline - by using the style attribute inside HTML elements</li>
+                        <li>Internal - by using a &lt;style&gt; element in the &lt;head&gt; section</li>
+                        <li>External - by using a &lt;link&gt; element to link to an external CSS file</li>
+                    </ul>
+                    <h3>CSS Syntax</h3>
+                    <p>A CSS rule consists of a selector and a declaration block:</p>
+                    <div class="code-block">
+selector {
+    property: value;
+}
+                    </div>
+                    <p>The selector points to the HTML element you want to style. The declaration block contains one or more declarations separated by semicolons. Each declaration includes a CSS property name and a value, separated by a colon.</p>
+                `
+            },
+            {
+                id: 4,
+                title: "Responsive Web Design",
+                content: `
+                    <p>Responsive web design makes your web page look good on all devices. It uses only HTML and CSS to resize, hide, shrink, enlarge, or move the content to make it look good on any screen.</p>
+                    <p>Responsive web design is not a program or a JavaScript. It is an approach to web design that makes web pages render well on a variety of devices and window or screen sizes.</p>
+                    <h3>Key Components of Responsive Design</h3>
+                    <ul>
+                        <li>Fluid Grids: Elements are sized in relative units like percentages, rather than absolute units like pixels.</li>
+                        <li>Flexible Images: Images are also sized in relative units to prevent them from displaying outside their containing element.</li>
+                        <li>Media Queries: Allow the page to use different CSS style rules based on characteristics of the device the site is being displayed on.</li>
+                    </ul>
+                    <h3>Media Query Example</h3>
+                    <div class="code-block">
+/* For mobile phones: */
+[class*="col-"] {
+    width: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+    /* For desktop: */
+    .col-1 {width: 8.33%;}
+    .col-2 {width: 16.66%;}
+    .col-3 {width: 25%;}
+    /* ... and so on */
+}
+                    </div>
+                `
+            },
+            {
+                id: 5,
+                title: "JavaScript Essentials",
+                content: `
+                    <p>JavaScript is a programming language that enables interactive web pages. It is an essential part of web applications and is supported by all modern web browsers.</p>
+                    <p>JavaScript can update and change both HTML and CSS, and can calculate, manipulate and validate data.</p>
+                    <h3>Basic JavaScript Syntax</h3>
+                    <div class="code-block">
+// Variables
+let message = "Hello, World!";
+const PI = 3.14159;
+var count = 0;
+
+// Functions
+function greet(name) {
+    return "Hello, " + name + "!";
+}
+
+// Event handling
+document.getElementById("myButton").addEventListener("click", function() {
+    alert("Button clicked!");
+});
+                    </div>
+                    <p>JavaScript can be used for:</p>
+                    <ul>
+                        <li>Adding interactive behavior to web pages</li>
+                        <li>Creating web and mobile apps</li>
+                        <li>Building web servers and developing server applications</li>
+                        <li>Game development</li>
+                    </ul>
+                `
+            },
+            {
+                id: 6,
+                title: "CSS Layout Techniques",
+                content: `
+                    <p>CSS provides several layout techniques to control the positioning of elements on a webpage. Understanding these techniques is crucial for creating well-structured, responsive designs.</p>
+                    <h3>Common Layout Methods</h3>
+                    <ul>
+                        <li>Normal Flow: The default layout where elements are displayed in the order they appear in the HTML</li>
+                        <li>Flexbox: A one-dimensional layout method for arranging items in rows or columns</li>
+                        <li>CSS Grid: A two-dimensional layout system for the web</li>
+                        <li>Floats: Allows elements to be positioned to the left or right of their container</li>
+                        <li>Positioning: Precisely controls the placement of an element (static, relative, absolute, fixed, sticky)</li>
+                    </ul>
+                    <h3>Flexbox Example</h3>
+                    <div class="code-block">
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item {
+    flex: 1;
+    margin: 10px;
+}
+                    </div>
+                    <p>Flexbox is particularly useful for creating responsive layouts that adapt to different screen sizes without needing media queries for simple arrangements.</p>
+                `
+            },
+            {
+                id: 7,
+                title: "Web Typography",
+                content: `
+                    <p>Typography plays a crucial role in web design, affecting readability, user experience, and the overall aesthetic of a website.</p>
+                    <h3>Key Typography Concepts</h3>
+                    <ul>
+                        <li>Font Families: Serif, sans-serif, monospace, cursive, fantasy</li>
+                        <li>Font Properties: size, weight, style, variant, line-height</li>
+                        <li>Text Properties: alignment, decoration, transformation, spacing</li>
+                        <li>Web Fonts: Using custom fonts via @font-face or services like Google Fonts</li>
+                    </ul>
+                    <h3>Typography Best Practices</h3>
+                    <ul>
+                        <li>Limit the number of font families (2-3 maximum)</li>
+                        <li>Establish a clear visual hierarchy with heading sizes</li>
+                        <li>Ensure sufficient contrast between text and background</li>
+                        <li>Use appropriate line lengths (50-75 characters per line)</li>
+                        <li>Maintain adequate line height (1.4-1.6 for body text)</li>
+                    </ul>
+                    <h3>CSS Typography Example</h3>
+                    <div class="code-block">
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+                    </div>
+                `
+            },
+            {
+                id: 8,
+                title: "Color Theory in Web Design",
+                content: `
+                    <p>Color is a powerful design tool that can influence mood, convey meaning, and create visual interest. Understanding color theory helps designers make informed choices about color schemes.</p>
+                    <h3>Color Concepts</h3>
+                    <ul>
+                        <li>Color Wheel: A circular diagram of colors arranged by their relationship</li>
+                        <li>Primary Colors: Red, blue, yellow - cannot be created by mixing other colors</li>
+                        <li>Secondary Colors: Green, orange, purple - created by mixing primary colors</li>
+                        <li>Tertiary Colors: Created by mixing primary and secondary colors</li>
+                        <li>Color Harmony: Pleasing arrangements of colors (complementary, analogous, triadic)</li>
+                    </ul>
+                    <h3>Color Psychology in Web Design</h3>
+                    <ul>
+                        <li>Red: Energy, passion, urgency (often used for calls to action)</li>
+                        <li>Blue: Trust, security, calm (popular for corporate and financial sites)</li>
+                        <li>Green: Growth, health, nature (common for environmental and health sites)</li>
+                        <li>Yellow: Optimism, warmth, attention (use sparingly as it can be overwhelming)</li>
+                        <li>Purple: Luxury, creativity, wisdom (often used for beauty and creative sites)</li>
+                    </ul>
+                    <h3>CSS Color Properties</h3>
+                    <div class="code-block">
+/* Different ways to specify colors in CSS */
+color: red;                    /* Named color */
+color: #ff0000;                /* Hex color */
+color: rgb(255, 0, 0);         /* RGB */
+color: rgba(255, 0, 0, 0.5);   /* RGB with alpha transparency */
+color: hsl(0, 100%, 50%);      /* HSL */
+color: hsla(0, 100%, 50%, 0.5); /* HSL with alpha transparency */
+                    </div>
+                `
+            },
+            {
+                id: 9,
+                title: "Web Accessibility",
+                content: `
+                    <p>Web accessibility ensures that websites, tools, and technologies are designed and developed so that people with disabilities can use them. Accessibility benefits everyone, including people with temporary or situational limitations.</p>
+                    <h3>Key Accessibility Principles (POUR)</h3>
+                    <ul>
+                        <li>Perceivable: Information and user interface components must be presentable to users in ways they can perceive</li>
+                        <li>Operable: User interface components and navigation must be operable</li>
+                        <li>Understandable: Information and the operation of the user interface must be understandable</li>
+                        <li>Robust: Content must be robust enough to be interpreted reliably by a wide variety of user agents</li>
+                    </ul>
+                    <h3>Accessibility Best Practices</h3>
+                    <ul>
+                        <li>Provide text alternatives for non-text content</li>
+                        <li>Create content that can be presented in different ways</li>
+                        <li>Make all functionality available from a keyboard</li>
+                        <li>Give users enough time to read and use content</li>
+                        <li>Do not design content in a way that is known to cause seizures</li>
+                        <li>Provide ways to help users navigate, find content, and determine where they are</li>
+                    </ul>
+                    <h3>Semantic HTML for Accessibility</h3>
+                    <div class="code-block">
+&lt;!-- Use semantic elements --&gt;
+&lt;header&gt;
+    &lt;nav&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="#home"&gt;Home&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#about"&gt;About&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/nav&gt;
+&lt;/header&gt;
+
+&lt;main&gt;
+    &lt;article&gt;
+        &lt;h1&gt;Article Title&lt;/h1&gt;
+        &lt;p&gt;Article content...&lt;/p&gt;
+    &lt;/article&gt;
+&lt;/main&gt;
+
+&lt;footer&gt;
+    &lt;p&gt;Copyright information&lt;/p&gt;
+&lt;/footer&gt;
+                    </div>
+                `
+            },
+            {
+                id: 10,
+                title: "CSS Grid Layout",
+                content: `
+                    <p>CSS Grid Layout is a two-dimensional layout system for the web that allows designers to create complex responsive web design layouts more easily and consistently across browsers.</p>
+                    <h3>Grid Concepts</h3>
+                    <ul>
+                        <li>Grid Container: The element on which display: grid is applied</li>
+                        <li>Grid Item: The direct children of the grid container</li>
+                        <li>Grid Line: The dividing lines that make up the structure of the grid</li>
+                        <li>Grid Track: The space between two adjacent grid lines (rows or columns)</li>
+                        <li>Grid Cell: The space between two adjacent row and two adjacent column grid lines</li>
+                        <li>Grid Area: The total space surrounded by four grid lines</li>
+                    </ul>
+                    <h3>Basic Grid Example</h3>
+                    <div class="code-block">
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 20px;
+}
+
+.item {
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+/* Specific item placement */
+.item-1 {
+    grid-column: 1 / 3;  /* Span from column line 1 to 3 */
+    grid-row: 1;
+}
+
+.item-2 {
+    grid-column: 3;
+    grid-row: 1 / 3;    /* Span from row line 1 to 3 */
+}
+                    </div>
+                    <h3>Responsive Grid with Media Queries</h3>
+                    <div class="code-block">
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* For smaller screens */
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+}
+                    </div>
+                `
+            },
+            {
+                id: 11,
+                title: "CSS Flexbox",
+                content: `
+                    <p>Flexbox (Flexible Box Layout) is a one-dimensional layout method for arranging items in rows or columns. Items flex to fill additional space or shrink to fit into smaller spaces.</p>
+                    <h3>Flexbox Properties</h3>
+                    <ul>
+                        <li>display: flex - Creates a flex container</li>
+                        <li>flex-direction - Defines the direction of the main axis (row, row-reverse, column, column-reverse)</li>
+                        <li>flex-wrap - Controls whether items wrap onto multiple lines (nowrap, wrap, wrap-reverse)</li>
+                        <li>justify-content - Aligns items along the main axis (flex-start, flex-end, center, space-between, space-around, space-evenly)</li>
+                        <li>align-items - Aligns items along the cross axis (stretch, flex-start, flex-end, center, baseline)</li>
+                        <li>align-content - Aligns flex lines when there's extra space in the cross axis</li>
+                    </ul>
+                    <h3>Flexbox Example</h3>
+                    <div class="code-block">
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.item {
+    flex: 1 1 200px; /* flex-grow, flex-shrink, flex-basis */
+}
+
+.item-large {
+    flex: 2 1 300px;
+}
+
+.item-fixed {
+    flex: 0 0 150px; /* Won't grow or shrink */
+}
+                    </div>
+                    <h3>Common Flexbox Patterns</h3>
+                    <ul>
+                        <li>Navigation bars with evenly spaced items</li>
+                        <li>Card layouts with equal height columns</li>
+                        <li>Vertical and horizontal centering</li>
+                        <li>Sticky footers</li>
+                        <li>Responsive image galleries</li>
+                    </ul>
+                `
+            },
+            {
+                id: 12,
+                title: "CSS Transitions and Animations",
+                content: `
+                    <p>CSS transitions and animations allow you to create smooth, gradual changes to CSS properties over time, enhancing user experience and adding visual interest to websites.</p>
+                    <h3>CSS Transitions</h3>
+                    <p>Transitions enable you to define the transition between two states of an element.</p>
+                    <div class="code-block">
+.element {
+    transition: property duration timing-function delay;
+}
+
+/* Example */
+.button {
+    background-color: blue;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.button:hover {
+    background-color: darkblue;
+    transform: scale(1.05);
+}
+                    </div>
+                    <h3>CSS Animations</h3>
+                    <p>Animations allow more control over the intermediate steps of the animation sequence than transitions.</p>
+                    <div class="code-block">
+@keyframes slide-in {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.element {
+    animation: slide-in 0.5s ease-out;
+}
+
+/* With multiple properties */
+.element {
+    animation-name: slide-in;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;
+    animation-delay: 0.2s;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-fill-mode: both;
+}
+                    </div>
+                    <h3>Animation Best Practices</h3>
+                    <ul>
+                        <li>Use animations purposefully to enhance UX, not distract</li>
+                        <li>Keep animations short (200-500ms for micro-interactions)</li>
+                        <li>Use easing functions for more natural movement</li>
+                        <li>Consider performance - prefer transform and opacity over properties that trigger layout changes</li>
+                        <li>Provide controls for users who prefer reduced motion</li>
+                    </ul>
+                `
+            },
+            {
+                id: 13,
+                title: "CSS Variables",
+                content: `
+                    <p>CSS Custom Properties (commonly known as CSS Variables) allow you to store values in one place and then reference them elsewhere in your stylesheet. They make CSS more maintainable and dynamic.</p>
+                    <h3>Declaring and Using CSS Variables</h3>
+                    <div class="code-block">
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --font-size: 16px;
+    --spacing: 1rem;
+}
+
+.element {
+    color: var(--primary-color);
+    font-size: var(--font-size);
+    margin-bottom: var(--spacing);
+}
+
+.button {
+    background-color: var(--secondary-color);
+    padding: calc(var(--spacing) / 2) var(--spacing);
+}
+                    </div>
+                    <h3>Benefits of CSS Variables</h3>
+                    <ul>
+                        <li>Maintainability: Change values in one place to update throughout the stylesheet</li>
+                        <li>Semantic naming: Use meaningful names instead of arbitrary values</li>
+                        <li>Dynamic theming: Easily switch between themes by changing variable values</li>
+                        <li>Scoping: Variables can be defined at different levels of specificity</li>
+                        <li>JavaScript interaction: Variables can be accessed and modified with JavaScript</li>
+                    </ul>
+                    <h3>Using CSS Variables with JavaScript</h3>
+                    <div class="code-block">
+// Get variable value
+const primaryColor = getComputedStyle(document.documentElement)
+    .getPropertyValue('--primary-color');
+
+// Set variable value
+document.documentElement.style.setProperty('--primary-color', '#e74c3c');
+
+// Example: Theme switching
+function switchTheme(theme) {
+    if (theme === 'dark') {
+        document.documentElement.style.setProperty('--bg-color', '#1a1a1a');
+        document.documentElement.style.setProperty('--text-color', '#ffffff');
+    } else {
+        document.documentElement.style.setProperty('--bg-color', '#ffffff');
+        document.documentElement.style.setProperty('--text-color', '#000000');
+    }
+}
+                    </div>
+                `
+            },
+            {
+                id: 14,
+                title: "CSS Preprocessors",
+                content: `
+                    <p>CSS preprocessors are scripting languages that extend the default capabilities of CSS. They enable you to use variables, nested rules, mixins, functions, and other techniques that make CSS more maintainable and powerful.</p>
+                    <h3>Popular CSS Preprocessors</h3>
+                    <ul>
+                        <li>Sass (Syntactically Awesome Style Sheets)</li>
+                        <li>Less (Leaner Style Sheets)</li>
+                        <li>Stylus</li>
+                    </ul>
+                    <h3>Sass Features</h3>
+                    <div class="code-block">
+// Variables
+$primary-color: #3498db;
+$font-stack: Helvetica, sans-serif;
+
+// Nesting
+nav {
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        
+        li {
+            display: inline-block;
+            
+            a {
+                display: block;
+                padding: 6px 12px;
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+// Mixins
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    border-radius: $radius;
+}
+
+.button {
+    @include border-radius(10px);
+}
+
+// Extend/Inheritance
+%message-shared {
+    border: 1px solid #ccc;
+    padding: 10px;
+    color: #333;
+}
+
+.success {
+    @extend %message-shared;
+    border-color: green;
+}
+
+// Functions
+@function calculate-rem($size) {
+    $rem-size: $size / 16px;
+    @return #{$rem-size}rem;
+}
+
+body {
+    font-size: calculate-rem(16px);
+}
+                    </div>
+                    <h3>Benefits of Using Preprocessors</h3>
+                    <ul>
+                        <li>More maintainable code through variables and mixins</li>
+                        <li>Reduced repetition with nesting and extends</li>
+                        <li>Modular code organization with partials and imports</li>
+                        <li>Advanced features like loops and conditionals</li>
+                        <li>Better code organization and structure</li>
+                    </ul>
+                `
+            },
+            {
+                id: 15,
+                title: "CSS Methodologies",
+                content: `
+                    <p>CSS methodologies are structured approaches to writing and organizing CSS code. They help maintain large codebases, improve collaboration, and create more predictable, scalable stylesheets.</p>
+                    <h3>Popular CSS Methodologies</h3>
+                    <ul>
+                        <li>BEM (Block, Element, Modifier)</li>
+                        <li>OOCSS (Object-Oriented CSS)</li>
+                        <li>SMACSS (Scalable and Modular Architecture for CSS)</li>
+                        <li>ITCSS (Inverted Triangle CSS)</li>
+                        <li>Atomic CSS</li>
+                    </ul>
+                    <h3>BEM Methodology</h3>
+                    <p>BEM stands for Block, Element, Modifier. It's a naming convention that makes the relationship between CSS and HTML clear and explicit.</p>
+                    <div class="code-block">
+/* Block */
+.card { }
+
+/* Element (part of the block) */
+.card__header { }
+.card__body { }
+.card__footer { }
+
+/* Modifier (different state or version of the block/element) */
+.card--featured { }
+.card__button--disabled { }
+                    </div>
+                    <div class="code-block">
+&lt;div class="card card--featured"&gt;
+    &lt;div class="card__header"&gt;
+        &lt;h2 class="card__title"&gt;Featured Card&lt;/h2&gt;
+    &lt;/div&gt;
+    &lt;div class="card__body"&gt;
+        &lt;p class="card__text"&gt;Card content...&lt;/p&gt;
+        &lt;button class="card__button card__button--disabled"&gt;Click me&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+                    </div>
+                    <h3>OOCSS Principles</h3>
+                    <ul>
+                        <li>Separate structure from skin: Keep layout properties separate from visual properties</li>
+                        <li>Separate container from content: Styles shouldn't depend on their container</li>
+                    </ul>
+                    <div class="code-block">
+/* Structure (layout) */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Skin (visual) */
+.button {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px 15px;
+    background-color: #f0f0f0;
+}
+
+.button-primary {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+                    </div>
+                `
+            },
+            {
+                id: 16,
+                title: "CSS Frameworks",
+                content: `
+                    <p>CSS frameworks provide pre-written, standardized code to help speed up the development of websites and web applications. They typically include reset styles, grid systems, UI components, and utility classes.</p>
+                    <h3>Popular CSS Frameworks</h3>
+                    <ul>
+                        <li>Bootstrap: The most popular framework with extensive components and JavaScript plugins</li>
+                        <li>Tailwind CSS: A utility-first CSS framework for rapidly building custom designs</li>
+                        <li>Foundation: A responsive front-end framework with a mobile-first approach</li>
+                        <li>Bulma: A modern CSS framework based on Flexbox</li>
+                        <li>Materialize: A framework based on Material Design principles</li>
+                    </ul>
+                    <h3>Bootstrap Example</h3>
+                    <div class="code-block">
+&lt;!-- Bootstrap CSS --&gt;
+&lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+
+&lt;div class="container"&gt;
+    &lt;div class="row"&gt;
+        &lt;div class="col-md-4"&gt;
+            &lt;div class="card"&gt;
+                &lt;div class="card-body"&gt;
+                    &lt;h5 class="card-title"&gt;Card title&lt;/h5&gt;
+                    &lt;p class="card-text"&gt;Some quick example text.&lt;/p&gt;
+                    &lt;a href="#" class="btn btn-primary"&gt;Go somewhere&lt;/a&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="col-md-4"&gt;
+            &lt;!-- Another card --&gt;
+        &lt;/div&gt;
+        &lt;div class="col-md-4"&gt;
+            &lt;!-- Another card --&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+                    </div>
+                    <h3>Tailwind CSS Example</h3>
+                    <div class="code-block">
+&lt;div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl"&gt;
+    &lt;div class="md:flex"&gt;
+        &lt;div class="md:shrink-0"&gt;
+            &lt;img class="h-48 w-full object-cover md:h-full md:w-48" src="/img/image.jpg" alt="Modern building architecture"&gt;
+        &lt;/div&gt;
+        &lt;div class="p-8"&gt;
+            &lt;div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold"&gt;Company retreats&lt;/div&gt;
+            &lt;a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline"&gt;Incredible accommodation for your team&lt;/a&gt;
+            &lt;p class="mt-2 text-slate-500"&gt;Looking to take your team away on a retreat to enjoy awesome food and take in some sunshine? We have a list of places to do just that.&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+                    </div>
+                    <h3>Choosing a CSS Framework</h3>
+                    <ul>
+                        <li>Consider project requirements and complexity</li>
+                        <li>Evaluate learning curve and documentation quality</li>
+                        <li>Check browser compatibility and community support</li>
+                        <li>Assess customization options and theming capabilities</li>
+                        <li>Consider performance implications and bundle size</li>
+                    </ul>
+                `
+            },
+            {
+                id: 17,
+                title: "CSS Performance Optimization",
+                content: `
+                    <p>CSS performance optimization involves techniques to make your stylesheets load and render faster, improving the overall user experience and site performance metrics.</p>
+                    <h3>CSS Optimization Techniques</h3>
+                    <ul>
+                        <li>Minification: Remove whitespace, comments, and unnecessary characters</li>
+                        <li>Concatenation: Combine multiple CSS files into one to reduce HTTP requests</li>
+                        <li>Critical CSS: Extract and inline CSS needed for above-the-fold content</li>
+                        <li>Remove unused CSS: Eliminate styles that aren't used on the page</li>
+                        <li>Efficient selectors: Use simple, specific selectors for better performance</li>
+                        <li>CSS containment: Use the contain property to limit the scope of style calculations</li>
+                    </ul>
+                    <h3>CSS Delivery Optimization</h3>
+                    <div class="code-block">
+/* Inline critical CSS in the head */
+&lt;style&gt;
+/* Critical CSS for above-the-fold content */
+.header { ... }
+.hero { ... }
+.navigation { ... }
+&lt;/style&gt;
+
+/* Load non-critical CSS asynchronously */
+&lt;link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'"&gt;
+&lt;noscript&gt;&lt;link rel="stylesheet" href="styles.css"&gt;&lt;/noscript&gt;
+                    </div>
+                    <h3>Efficient CSS Selectors</h3>
+                    <div class="code-block">
+/* Efficient selectors */
+.button { }                    /* Good - class selector */
+#header .nav li a { }         /* Okay - but could be simplified */
+.nav-link { }                 /* Better - single class selector */
+
+/* Inefficient selectors */
+div ul li a { }               /* Bad - too generic */
+* { }                         /* Bad - universal selector */
+[type="text"] { }             /* Okay - but attribute selectors are slower */
+                    </div>
+                    <h3>CSS Properties and Performance</h3>
+                    <ul>
+                        <li>Properties that trigger layout: width, height, padding, margin, display, etc.</li>
+                        <li>Properties that trigger paint: color, background, box-shadow, border-radius, etc.</li>
+                        <li>Properties that trigger composite: transform, opacity, filter, etc.</li>
+                    </ul>
+                    <p>For better performance, prefer transform and opacity changes for animations, as they don't trigger layout or paint operations.</p>
+                    <div class="code-block">
+/* Better performance - uses GPU acceleration */
+.animate {
+    transform: translateX(100px);
+    opacity: 0.5;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+/* Worse performance - triggers layout and paint */
+.animate-slow {
+    margin-left: 100px;
+    background-color: rgba(255, 0, 0, 0.5);
+    transition: margin-left 0.3s, background-color 0.3s;
+}
+                    </div>
+                `
+            },
+            {
+                id: 18,
+                title: "CSS for Print",
+                content: `
+                    <p>Print stylesheets allow you to optimize web content for printing. They control how web pages appear when printed, removing unnecessary elements and adjusting layout for paper.</p>
+                    <h3>Print CSS Basics</h3>
+                    <div class="code-block">
+@media print {
+    /* Hide elements not needed for print */
+    .navigation, .sidebar, .advertisement {
+        display: none;
+    }
+    
+    /* Adjust typography for print */
+    body {
+        font-size: 12pt;
+        line-height: 1.4;
+        color: black;
+        background: white;
+    }
+    
+    /* Ensure proper page breaks */
+    h1, h2, h3 {
+        page-break-after: avoid;
+    }
+    
+    p, ul, ol {
+        page-break-inside: avoid;
+    }
+    
+    /* Adjust links */
+    a:after {
+        content: " (" attr(href) ")";
+        font-size: 10pt;
+    }
+    
+    /* Remove background images and colors */
+    * {
+        background: transparent !important;
+        color: black !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+}
+                    </div>
+                    <h3>Print-Specific Properties</h3>
+                    <ul>
+                        <li>page-break-before: Control page breaks before an element</li>
+                        <li>page-break-after: Control page breaks after an element</li>
+                        <li>page-break-inside: Control page breaks inside an element</li>
+                        <li>orphans: Minimum number of lines at the bottom of a page</li>
+                        <li>widows: Minimum number of lines at the top of a page</li>
+                    </ul>
+                    <div class="code-block">
+@media print {
+    /* Avoid page breaks inside these elements */
+    pre, blockquote, img, figure {
+        page-break-inside: avoid;
+    }
+    
+    /* Ensure headings stay with the following content */
+    h1, h2, h3, h4, h5, h6 {
+        page-break-after: avoid;
+    }
+    
+    /* Control minimum lines at top/bottom of pages */
+    p, li {
+        orphans: 3;
+        widows: 3;
+    }
+}
+                    </div>
+                    <h3>Print Layout Considerations</h3>
+                    <ul>
+                        <li>Use points (pt) for font sizes instead of pixels (px)</li>
+                        <li>Set margins to ensure content isn't cut off</li>
+                        <li>Use serif fonts for better readability in print</li>
+                        <li>Remove interactive elements that don't work on paper</li>
+                        <li>Include URLs after links for reference</li>
+                        <li>Consider adding print-specific headers/footers</li>
+                    </ul>
+                `
+            },
+            {
+                id: 19,
+                title: "Advanced CSS Selectors",
+                content: `
+                    <p>Advanced CSS selectors allow for more precise targeting of elements without needing to add extra classes or IDs to your HTML. They can make your CSS more efficient and maintainable.</p>
+                    <h3>Attribute Selectors</h3>
+                    <div class="code-block">
+/* Elements with a specific attribute */
+[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Elements with a specific attribute value */
+[type="text"] {
+    border: 1px solid #ccc;
+}
+
+/* Attribute values starting with... */
+[href^="https"] {
+    color: green;
+}
+
+/* Attribute values ending with... */
+[href$=".pdf"]::after {
+    content: " (PDF)";
+}
+
+/* Attribute values containing... */
+[class*="button"] {
+    padding: 10px 15px;
+}
+
+/* Attribute values that are exactly or begin with... */
+[class|="section"] {
+    margin-bottom: 20px;
+}
+                    </div>
+                    <h3>Pseudo-class Selectors</h3>
+                    <div class="code-block">
+/* Structural pseudo-classes */
+:first-child { }              /* First child of its parent */
+:last-child { }               /* Last child of its parent */
+:nth-child(n) { }             /* nth child of its parent */
+:nth-last-child(n) { }        /* nth child from the end */
+:only-child { }               /* Element with no siblings */
+
+/* Form pseudo-classes */
+:checked { }                  /* Checked radio buttons or checkboxes */
+:disabled { }                 /* Disabled form elements */
+:required { }                 /* Required form fields */
+:valid, :invalid { }          /* Valid/invalid form fields */
+
+/* Link and interaction pseudo-classes */
+:link, :visited { }           /* Unvisited/visited links */
+:hover, :focus, :active { }   /* User interaction states */
+                    </div>
+                    <h3>Pseudo-element Selectors</h3>
+                    <div class="code-block">
+/* ::before and ::after for generated content */
+.quote::before {
+    content: "“";
+    font-size: 2em;
+    color: #999;
+}
+
+.quote::after {
+    content: "”";
+    font-size: 2em;
+    color: #999;
+}
+
+/* ::first-line and ::first-letter */
+p::first-line {
+    font-weight: bold;
+}
+
+p::first-letter {
+    font-size: 2em;
+    float: left;
+    margin-right: 5px;
+}
+
+/* ::selection for selected text */
+::selection {
+    background-color: yellow;
+    color: black;
+}
+                    </div>
+                    <h3>Combinator Selectors</h3>
+                    <div class="code-block">
+/* Descendant selector (space) */
+article p { }                 /* All p elements inside article */
+
+/* Child selector (>) */
+ul > li { }                   /* Direct li children of ul */
+
+/* Adjacent sibling selector (+) */
+h2 + p { }                    /* p immediately following h2 */
+
+/* General sibling selector (~) */
+h2 ~ p { }                    /* All p elements following h2 */
+                    </div>
+                `
+            },
+            {
+                id: 20,
+                title: "CSS Specificity and Inheritance",
+                content: `
+                    <p>CSS specificity determines which CSS rule is applied by the browsers when multiple rules could apply to the same element. Understanding specificity is crucial for writing maintainable CSS and avoiding styling conflicts.</p>
+                    <h3>Specificity Hierarchy</h3>
+                    <p>Specificity is calculated based on the components of a selector. From highest to lowest specificity:</p>
+                    <ul>
+                        <li>Inline styles (added directly to HTML elements)</li>
+                        <li>ID selectors</li>
+                        <li>Class, attribute, and pseudo-class selectors</li>
+                        <li>Type (element) and pseudo-element selectors</li>
+                    </ul>
+                    <h3>Specificity Calculation</h3>
+                    <p>Specificity is often represented as a tuple of four numbers: (a, b, c, d)</p>
+                    <ul>
+                        <li>a: Inline styles (1 if present, 0 otherwise)</li>
+                        <li>b: Number of ID selectors</li>
+                        <li>c: Number of class, attribute, and pseudo-class selectors</li>
+                        <li>d: Number of type and pseudo-element selectors</li>
+                    </ul>
+                    <div class="code-block">
+/* Specificity examples */
+* {}                          /* 0,0,0,0 */
+li {}                         /* 0,0,0,1 */
+ul li {}                      /* 0,0,0,2 */
+.button {}                    /* 0,0,1,0 */
+li.active {}                  /* 0,0,1,1 */
+#header {}                    /* 0,1,0,0 */
+#header .nav li a {}          /* 0,1,1,2 */
+style="color: red;"           /* 1,0,0,0 */
+                    </div>
+                    <h3>!important Rule</h3>
+                    <p>The !important rule overrides all previous styling rules for that specific property. It should be used sparingly as it can make CSS harder to maintain.</p>
+                    <div class="code-block">
+.button {
+    background-color: blue !important;
+}
+
+/* Even with higher specificity, the !important rule wins */
+#special .button {
+    background-color: red; /* This won't apply */
+}
+                    </div>
+                    <h3>CSS Inheritance</h3>
+                    <p>Some CSS properties are inherited by child elements from their parent elements, while others are not.</p>
+                    <ul>
+                        <li>Inherited properties: color, font, line-height, text-align, etc.</li>
+                        <li>Non-inherited properties: background, border, margin, padding, display, etc.</li>
+                    </ul>
+                    <div class="code-block">
+/* Inherited properties */
+body {
+    color: #333;
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+}
+
+/* All child elements will inherit these properties */
+
+/* Non-inherited properties */
+.container {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    margin: 20px;
+    padding: 15px;
+}
+
+/* Child elements won't inherit these properties */
+                    </div>
+                    <h3>Controlling Inheritance</h3>
+                    <div class="code-block">
+/* Force inheritance */
+.child {
+    background-color: inherit;
+    border: inherit;
+}
+
+/* Prevent inheritance */
+.child {
+    color: initial;        /* Reset to initial value */
+    font-size: unset;      /* Use inheritance if available, initial otherwise */
+    all: revert;           /* Revert to user agent or user styles */
+}
+                    </div>
+                `
+            }
+        ];
+
+        // DOM Elements
+        const chaptersContainer = document.getElementById('chapters-container');
+        const chaptersContent = document.getElementById('chapters-content');
+        const searchInput = document.getElementById('search-input');
+        const searchBtn = document.getElementById('search-btn');
+        const backToTopBtn = document.getElementById('back-to-top');
+
+        // Generate chapter cards
+        chapters.forEach(chapter => {
+            const card = document.createElement('div');
+            card.className = 'chapter-card';
+            card.innerHTML = `
+                <span class="chapter-number">Chapter ${chapter.id}</span>
+                <h3>${chapter.title}</h3>
+                <p>Click to view detailed notes on this important web design topic.</p>
+            `;
+            card.addEventListener('click', () => showChapter(chapter.id));
+            chaptersContainer.appendChild(card);
+        });
+
+        // Generate chapter content sections
+        chapters.forEach(chapter => {
+            const contentSection = document.createElement('div');
+            contentSection.className = 'chapter-content';
+            contentSection.id = `chapter-${chapter.id}`;
+            contentSection.innerHTML = `
+                <h2>Chapter ${chapter.id}: ${chapter.title}</h2>
+                ${chapter.content}
+                <div class="chapter-nav">
+                    <button class="nav-btn" onclick="showChapter(${chapter.id - 1})" ${chapter.id === 1 ? 'disabled' : ''}>Previous Chapter</button>
+                    <button class="nav-btn" onclick="showChapter(${chapter.id + 1})" ${chapter.id === chapters.length ? 'disabled' : ''}>Next Chapter</button>
+                </div>
+            `;
+            chaptersContent.appendChild(contentSection);
+        });
+
+        // Show specific chapter
+        function showChapter(chapterId) {
+            if (chapterId < 1 || chapterId > chapters.length) return;
+            
+            // Hide all chapter contents
+            document.querySelectorAll('.chapter-content').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show the selected chapter
+            document.getElementById(`chapter-${chapterId}`).classList.add('active');
+            
+            // Scroll to the chapter
+            document.getElementById(`chapter-${chapterId}`).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Search functionality
+        function searchChapters() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                // If search is empty, show all chapters
+                document.querySelectorAll('.chapter-card').forEach(card => {
+                    card.style.display = 'block';
+                });
+                return;
+            }
+            
+            // Filter chapters based on search term
+            document.querySelectorAll('.chapter-card').forEach(card => {
+                const chapterTitle = card.querySelector('h3').textContent.toLowerCase();
+                const chapterId = parseInt(card.querySelector('.chapter-number').textContent.replace('Chapter ', ''));
+                const chapterContent = chapters[chapterId - 1].content.toLowerCase();
+                
+                if (chapterTitle.includes(searchTerm) || chapterContent.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Event listeners
+        searchBtn.addEventListener('click', searchChapters);
+        searchInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                searchChapters();
+            }
+        });
+
+        // Back to top functionality
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.style.display = 'block';
+            } else {
+                backToTopBtn.style.display = 'none';
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Make showChapter function available globally for navigation
+        window.showChapter = showChapter;
+
+        // Show first chapter by default
+        showChapter(1);
+    </script>
+</body>
+</html>
