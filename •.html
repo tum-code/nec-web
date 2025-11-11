@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>🎩</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+  
+    <style>
+        :root{
+            --b: black;
+            --w: #ffb5aa;
+        }
+        :root{
+    --b: black;
+    --w: var(--animated-color);
+    --animated-color: white;
+    animation: colorRotate 8s linear infinite;
+}
+
+@keyframes colorRotate {
+    0% { --animated-color: #ffffff; }    /* white */
+    14% { --animated-color: #ffff00; }   /* yellow */
+    28% { --animated-color: #ffa500; }   /* orange */
+    42% { --animated-color: #ff4500; }   /* orange-red */
+    56% { --animated-color: #ff0000; }   /* red */
+    70% { --animated-color: #ff4500; }   /* orange-red */
+    84% { --animated-color: #ffa500; }   /* orange */
+    100% { --animated-color: #ffffff; }  /* white */
+}
+        body{background: var(--b);
+        color: var(--w);
+        font-family: 'Roboto Condensed', sans-serif;}
+        
+        header{width: 100%;
+        position: fixed; top: 0; left:0;
+        backdrop-filter: blur(10px);}
+        
+        #logo{font-weight: 900;
+        font-size: 3em;
+        color: var(--w);}
+        
+        li a{text-decoration: none;
+        color: var(--w);
+        font-weight: 900;}
+        
+        #top{margin-top: 25%;}
+        
+        table, th, td {
+  border: 0.2px dotted var(--w);
+  border-collapse: collapse;
+}
+
+table{width: 100%;}
+td{color: var(--w);}
+
+#fake{background: black;
+position: fixed;
+top: 0;
+left: 0;
+height: 100vh;
+width: 100vw;
+padding: 0em;
+text-align: center;
+border: none;
+z-index: 10000;}
+
+#warn{font-size: 10em;
+font-weight: 900;}
+
+.fas, .fab{font-size: inherit;
+color: inherit;}
+
+.dropdown-container {
+  position: fixed;
+  display: inline-block;
+  top: 2px;
+  right: 2px;
+}
+
+.dropdown-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--w);
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top:  1.2em;
+  right: 0;
+  background: var(--b);
+  border: 1px dotted var(--w);
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  min-width: 4em;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  max-height: 15rem;
+  overflow-y: auto;
+}
+
+.dropdown-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-item {
+  display: block;
+  font-size: 0.5em;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: var(--w);
+  border-bottom: 1px dotted var(--w);
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+td .fas{color: yellow;}
+
+/* Page sections */
+.page {
+  display: none;
+  padding: 0rem;
+  margin-top: 80px;
+}
+
+#home-page {
+  display: block;
+}
+
+.page h2 {
+  margin-bottom: 1.5rem;
+  border-bottom: 1px dotted var(--w);
+  padding-bottom: 0.5rem;
+}
+
+.tools-list {
+  list-style-type: circle;
+  margin-left: 2rem;
+}
+
+.tools-list li {
+  margin-bottom: 1rem;
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div id="logo">
+             Black<span>Hat</span> <i class="fas fa-terminal"></i>
+            <div class="dropdown-container">
+                <button class="dropdown-toggle" id="dropdownToggle">
+                    <span class="fas fa-bars"></span>
+                </button>
+                
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a class="dropdown-item" onclick="showPage('home-page')">Home</a>
+                    <a class="dropdown-item" onclick="showPage('account-attacks-page')">Account Attacks</a>
+                    <a class="dropdown-item" onclick="showPage('web-attacks-page')">Web Attacks</a>
+                    <a class="dropdown-item" onclick="showPage('device-attacks-page')">Device Attacks</a>
+                    <a class="dropdown-item" onclick="showPage('viruses-page')">Viruses</a>
+                    <a class="dropdown-item" onclick="showPage('spyware-page')">Spyware</a>
+                    <a class="dropdown-item" onclick="showPage('fake-emails-page')">Fake Emails</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Home Page -->
+    <div id="home-page" class="page">
+       <h2 id="top"><u>Top Tools</u></h2>
+        <table>
+            <tr>
+                <th>Nō</th>
+                <th>Ratings</th>
+                <th>Tool Name</th>
+                <th>Author(s)</th>
+            </tr>
+            <tr>
+                <th>001</th>
+                <td>
+                    <span class="fas fa-star"></span>
+                    <span class="fas fa-star"></span>
+                    <span class="fas fa-star"></span>
+                    <span class="fas fa-star"></span>
+                    <span class="fas fa-star"></span>
+                </td>
+                <td>Whatsapp Ban</td>
+                <td>More Time#</td>
+            </tr>
+            <tr>
+                <th>002</th>
+                <td>
+                    <span class="fas fa-star"></span>
+                    <span class="fas fa-star"></span>
+                    <span class="fas fa-star"></span>
+                    <span class="fas fa-star"></span>
+                    <span class="fas fa-star"></span>
+                </td>
+                <td>Air Brute</td>
+                <td>Legend Hassan</td>
+            </tr>
+            <tr>
+                <th>003</th>
+                <td>
+                    <span class="fas fa-star"></span>
+                    <span class="fas fa-star"></span>
+                    <span class="fas fa-star"></span>
+                </td>
+                <td>TikTok</td>
+                <td>Legend Hassan</td>
+            </tr>
+        </table>
+        
+        <h2 id="top"><u>Tools Available For Download</u></h2>
+        <ul class="tools-list">
+            <li>
+                <a href=".22/wifi1.nomedia" download>Wifi Attack Tool - Anonymous Author</a>
+            </li>
+            <li>
+                <a href=".22/wifi1.zip" download>Wifi Attack Tool - Anonymous Author</a>
+            </li>
+            <li>
+                <a href=".22/wifi1.zip" download>Wifi Attack Tool - Anonymous Author</a>
+            </li>
+            <li>
+                <a href=".22/wifi1.zip" download>Wifi Attack Tool - Anonymous Author</a>
+            </li>
+            <li>
+                <a href=".22/wifi1.zip" download>Wifi Attack Tool - Anonymous Author</a>
+            </li>
+            <li>
+                <a href=".22/wifi1.zip" download>Wifi Attack Tool - Anonymous Author</a>
+            </li>
+            <li>
+                <a href=".22/wifi1.zip" download>Wifi Attack Tool - Anonymous Author</a>
+            </li>
+        </ul>
+        
+        <h2 id="device"><u>Android And iOS Interface Tools</u></h2>
+        <ul class="tools-list">
+            <li>
+                <a href=".22/samsung_unlock1.zip" download>Samsung Unlock all Models [Gen 2ee]</a>
+            </li>
+        </ul>
+        
+        <h2 id="accounts"><u>Account Attack Tools</u></h2>
+        <ul class="tools-list">
+            <li><a href=".22/tiktok1.nomedia">TikTok Hack - Legend Hassan</a></li>
+        </ul>
+    </div>
+    
+    <!-- Account Attacks Page -->
+    <div id="account-attacks-page" class="page">
+        <h2><u>Account Attack Tools</u></h2>
+        <p>Tools designed to target and compromise user accounts across various platforms.</p>
+        
+        <h3><u>Available Tools</u></h3>
+        <ul class="tools-list">
+            <li><a href=".22/tiktok1.nomedia">TikTok Account Breaker - Legend Hassan</a></li>
+            <li><a href=".22/instagram_hack.zip">Instagram Password Cracker - Anonymous</a></li>
+            <li><a href=".22/facebook_tool.nomedia">Facebook Session Hijacker - CyberGhost</a></li>
+            <li><a href=".22/twitter_brute.zip">Twitter Brute Force - DarkCoder</a></li>
+        </ul>
+    </div>
+    
+    <!-- Web Attacks Page -->
+    <div id="web-attacks-page" class="page">
+        <h2><u>Web Attack Tools</u></h2>
+        <p>Tools and exploits targeting web applications and servers.</p>
+        
+        <h3><u>Available Tools</u></h3>
+        <ul class="tools-list">
+            <li><a href=".22/sql_injection.zip">SQL Injection Toolkit - WebBreach</a></li>
+            <li><a href=".22/xss_exploit.nomedia">XSS Exploitation Framework - ScriptKiddo</a></li>
+            <li><a href=".22/ddos_tool.zip">DDoS Botnet Controller - Anonymous</a></li>
+        </ul>
+    </div>
+    
+    <!-- Device Attacks Page -->
+    <div id="device-attacks-page" class="page">
+        <h2><u>Device Attack Tools</u></h2>
+        <p>Tools targeting mobile devices and computer systems.</p>
+        
+        <h3><u>Available Tools</u></h3>
+        <ul class="tools-list">
+            <li><a href=".22/samsung_unlock1.zip" download>Samsung Unlock all Models [Gen 2ee]</a></li>
+            <li><a href=".22/ios_jailbreak.zip">iOS Jailbreak Utility - AppleCracker</a></li>
+            <li><a href=".22/android_root.nomedia">Android Root Exploit - MobileHacker</a></li>
+        </ul>
+    </div>
+    
+    <!-- Viruses Page -->
+    <div id="viruses-page" class="page">
+        <h2><u>Virus Tools</u></h2>
+        <p>Malicious software designed to infect and compromise systems.</p>
+        
+        <h3><u>Available Tools</u></h3>
+        <ul class="tools-list">
+            <li><a href=".22/trojan_generator.zip">Trojan Generator - MalwareMaster</a></li>
+            <li><a href=".22/ransomware_builder.nomedia">Ransomware Builder - CryptoLock</a></li>
+            <li><a href=".22/worm_creator.zip">Network Worm Creator - SpreadIt</a></li>
+        </ul>
+    </div>
+    
+    <!-- Spyware Page -->
+    <div id="spyware-page" class="page">
+        <h2><u>Spyware Tools</u></h2>
+        <p>Surveillance tools for monitoring activities on target devices.</p>
+        
+        <h3><u>Available Tools</u></h3>
+        <ul class="tools-list">
+            <li><a href=".22/keylogger_pro.zip">Advanced Keylogger - SilentWatcher</a></li>
+            <li><a href=".22/screen_capture.nomedia">Remote Screen Capture - SpyEye</a></li>
+            <li><a href=".22/mic_listener.zip">Microphone Listener - Eavesdrop</a></li>
+        </ul>
+    </div>
+    
+    <!-- Fake Emails Page -->
+    <div id="fake-emails-page" class="page">
+        <h2><u>Fake Email Tools</u></h2>
+        <p>Tools for creating and sending spoofed emails for social engineering campaigns.</p>
+        
+        <h3><u>Available Tools</u></h3>
+        <ul class="tools-list">
+            <li><a href=".22/email_spoofer.zip">Email Spoofer Pro - PhishMaster</a></li>
+            <li><a href=".22/phishing_kit.nomedia">Phishing Kit Builder - Deception</a></li>
+            <li><a href=".22/smtp_relay.zip">SMTP Relay Tool - MailForge</a></li>
+        </ul>
+    </div>
+
+    <script>
+        // Dropdown functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownToggle = document.getElementById('dropdownToggle');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+            
+            dropdownToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                dropdownMenu.classList.toggle('show');
+            });
+            
+            dropdownMenu.addEventListener('click', function(e) {
+                if (e.target.classList.contains('dropdown-item')) {
+                    dropdownMenu.classList.remove('show');
+                }
+            });
+            
+            document.addEventListener('click', function() {
+                dropdownMenu.classList.remove('show');
+            });
+            
+            dropdownMenu.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+        
+        // Page navigation function
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            // Show the selected page
+            document.getElementById(pageId).style.display = 'block';
+        }
+    </script>
+</body>
+</html>
